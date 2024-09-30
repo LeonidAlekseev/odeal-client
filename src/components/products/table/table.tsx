@@ -102,7 +102,7 @@ export const ProductsTable = ({ refineCoreProps }: Props) => {
         })}
       </div>
 
-      <div className="py-4 flex justify-center px-4 gap-2">
+      <div className="flex justify-center pb-4 px-4 gap-2">
         <button
           className="border rounded-md px-2 py-2 text-sm font-medium hover:bg-gray-50"
           onClick={() => previousPage()}
