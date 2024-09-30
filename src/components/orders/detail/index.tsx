@@ -52,7 +52,7 @@ export const OrderDetail: React.FC<OrderPageProps> = ({ useShowProps }) => {
             </div>
             <div className="flex items-center gap-2">
               <h4 className="text-lg font-bold text-gray-700">Стоимость:</h4>
-              <p>₽{order.products.reduce((a, b) => a + b.price, 0)}</p>
+              <p>{order.products.reduce((a, b) => a + b.price, 0)}&nbsp;₽</p>
             </div>
           </div>
           <div>

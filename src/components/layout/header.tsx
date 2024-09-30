@@ -27,7 +27,9 @@ export const Header: React.FC = () => {
             {isBasketHaveOrders && (
               <div className="text-lg font-semibold text-white">
                 {orders.length} /
-                <span className="text-xl font-extrabold">₽{totalPrice}</span>
+                <span className="text-xl font-extrabold">
+                  {totalPrice}&nbsp;₽
+                </span>
               </div>
             )}
             <BasketIcon className="h-6 w-6" />

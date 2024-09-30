@@ -44,7 +44,7 @@ export const ProductsTable = ({ refineCoreProps }: Props) => {
                   </h3>
                   <p className="text-gray-600">{product.description}</p>
                   <div className="w-16 text-lg font-bold text-gray-800">
-                    ₽{product.price}
+                    {product.price}&nbsp;₽
                   </div>
                 </div>
               </div>

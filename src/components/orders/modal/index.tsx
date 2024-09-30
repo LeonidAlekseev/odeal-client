@@ -82,7 +82,7 @@ export const OrdersModal: React.FC = () => {
                         </div>
                         <div className="col-span-2 flex-none">
                           <span className="font-semibold">
-                            ₽{product?.price ?? 0}
+                            {product?.price ?? 0}&nbsp;₽
                           </span>
                         </div>
                         <button
@@ -110,7 +110,7 @@ export const OrdersModal: React.FC = () => {
                   <div className="flex items-center justify-center gap-2">
                     Итого:
                     <span className="text-lg font-bold text-gray-800">
-                      {orders.length} / ₽{totalPrice}
+                      {orders.length} / {totalPrice}&nbsp;₽
                     </span>
                   </div>
                   <button
