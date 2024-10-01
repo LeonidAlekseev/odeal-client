@@ -108,7 +108,7 @@ export const ProductsTable = ({ refineCoreProps }: Props) => {
           onClick={() => previousPage()}
           disabled={!getCanPreviousPage()}
         >
-          <ChevronLeftIcon className="text-primary h-5 w-5" />
+          <ChevronLeftIcon className="h-5 w-5" />
         </button>
         {getPageOptions().map((page) => (
           <button
@@ -126,7 +126,7 @@ export const ProductsTable = ({ refineCoreProps }: Props) => {
           onClick={() => nextPage()}
           disabled={!getCanNextPage()}
         >
-          <ChevronRightIcon className="text-primary h-5 w-5" />
+          <ChevronRightIcon className="h-5 w-5" />
         </button>
       </div>
     </>
