@@ -92,6 +92,9 @@ export const BasketContextProvider: React.FC<PropsWithChildren> = ({
     queryOptions: {
       enabled: isBasketHaveOrders,
     },
+    meta: {
+      populate: ["images"],
+    },
   });
 
   const totalPrice = orders.reduce((total, currentValue) => {

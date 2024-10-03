@@ -6,6 +6,7 @@ import { useOrdesModalContext } from "@/hooks/useOrdersModalContext";
 import { useBasketContext } from "@/hooks/useBasketContext";
 import { useOnClickOutside } from "@/hooks/useOnClickOutside";
 import type { Order } from "@/types";
+import { MEDIA_API_URL } from "@/utils/constants";
 
 export const OrdersModal: React.FC = () => {
   const ref = useRef(null);
@@ -75,7 +76,7 @@ export const OrdersModal: React.FC = () => {
                         <div className="col-span-5 flex items-center gap-2">
                           <img
                             className="h-12 w-12 rounded-md object-cover object-center"
-                            src={product?.images[0].url}
+                            src={`${MEDIA_API_URL}${product?.images?.[0]?.url}`}
                             alt={product?.name}
                           />
                           <p className="font-semibold">{product?.name}</p>

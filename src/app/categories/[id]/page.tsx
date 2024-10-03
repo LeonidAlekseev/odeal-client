@@ -1,76 +1,34 @@
-import React from "react";
-import type { GetListParams, GetListResponse } from "@refinedev/core";
-import { dataProvider } from "@/providers/data-provider/server";
-import type { Product } from "@/types";
+"use client";
+
+import React, { Suspense } from "react";
+import { useList } from "@refinedev/core";
+import type { Category } from "@/types";
 import { ProductsTable } from "@/components/products/table";
+import { CategoriesNavLinks } from "@/components/categories";
+import { ProductsTableSkeleton } from "@/components/products/table";
 
 type CategoryShowPageProps = {
   params: { id: string };
-  searchParams: { [key: string]: string | string[] | undefined };
 };
 
-export default async function CategoryShowPage({
-  params,
-  searchParams,
-}: CategoryShowPageProps) {
-  const { products } = await getData({
-    categoryId: params.id,
-    productPaginationOptions: {
-      current: searchParams.current
-        ? Number(searchParams.current as string)
-        : 1,
+export default function CategoryShowPage({ params }: CategoryShowPageProps) {
+  const { data: categoriesData } = useList<Category>({
+    resource: "categories",
+    pagination: {
+      mode: "off",
     },
   });
+  const categories = categoriesData?.data ?? [];
 
   return (
-    <ProductsTable
-      refineCoreProps={{
-        queryOptions: {
-          initialData: products,
-        },
-        permanentFilter: [
-          {
-            field: "category.id",
-            operator: "eq",
-            value: params.id,
-          },
-        ],
-      }}
-    />
+    <>
+      <CategoriesNavLinks
+        categories={categories}
+        selectedCategoryId={params.id}
+      />
+      <Suspense fallback={<ProductsTableSkeleton />}>
+        <ProductsTable categoryId={parseInt(params.id)} />
+      </Suspense>
+    </>
   );
-}
-
-type GetDataProps = {
-  categoryId: string;
-  productPaginationOptions?: GetListParams["pagination"];
-};
-
-async function getData(props: GetDataProps) {
-  try {
-    const productData: GetListResponse<Product> = await dataProvider.getList({
-      resource: "products",
-      pagination: {
-        pageSize: 6,
-        ...props.productPaginationOptions,
-      },
-      filters: [
-        {
-          field: "category.id",
-          operator: "eq",
-          value: props.categoryId,
-        },
-      ],
-    });
-
-    return {
-      products: productData,
-    };
-  } catch (error) {
-    return {
-      products: {
-        total: 0,
-        data: [],
-      },
-    };
-  }
 }

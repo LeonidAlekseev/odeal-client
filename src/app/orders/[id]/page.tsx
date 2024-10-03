@@ -1,55 +1,24 @@
+"use client";
+
 import React from "react";
-import type { GetOneResponse } from "@refinedev/core";
-import { dataProvider } from "@/providers/data-provider/server";
-import type { Order } from "@/types";
+import { useOne } from "@refinedev/core";
 import { redirect } from "next/navigation";
 import { OrderDetail } from "@/components/orders";
+import type { Order } from "@/types";
 
 type OrderShowPagePageProps = {
   params: { id: string };
-  searchParams: { [key: string]: string | string[] | undefined };
 };
 
-export default async function OrderShowPage({
-  params,
-}: OrderShowPagePageProps) {
-  const { order } = await getData({
-    orderId: params.id,
+export default function OrderShowPage({ params }: OrderShowPagePageProps) {
+  const { data: orderData } = useOne<Order>({
+    resource: "categories",
+    id: parseInt(params.id),
   });
 
-  if (!order) {
+  if (!orderData?.data) {
     return redirect("/");
   }
 
-  return (
-    <OrderDetail
-      useShowProps={{
-        id: params.id,
-        queryOptions: {
-          initialData: order,
-        },
-      }}
-    />
-  );
-}
-
-type GetDataProps = {
-  orderId: string;
-};
-
-async function getData(props: GetDataProps) {
-  try {
-    const orderData: GetOneResponse<Order> = await dataProvider.getOne({
-      resource: "orders",
-      id: props.orderId,
-    });
-
-    return {
-      order: orderData,
-    };
-  } catch (error) {
-    return {
-      order: null,
-    };
-  }
+  return <OrderDetail orderId={parseInt(params.id)} />;
 }

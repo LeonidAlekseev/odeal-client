@@ -1,9 +1,4 @@
-import { CategoriesNavLinks } from "@/components/categories";
-import { ProductsTableSkeleton } from "@/components/products/table";
-import { dataProvider } from "@/providers/data-provider/server";
-import type { Category } from "@/types";
-import type { GetListResponse } from "@refinedev/core";
-import { type PropsWithChildren, Suspense } from "react";
+import { type PropsWithChildren } from "react";
 
 type Props = {
   params: { id: string };
@@ -13,8 +8,6 @@ export default async function Layout({
   children,
   params,
 }: PropsWithChildren<Props>) {
-  const { categories } = await getData();
-
   return (
     <div className="container pt-6 mx-auto">
       <div className="flex items-center justify-between gap-2">
@@ -34,35 +27,8 @@ export default async function Layout({
         />
       </div>
       <div className="bg-white rounded-t-[36px] rounded-b-[20px]">
-        <CategoriesNavLinks
-          categories={categories}
-          selectedCategoryId={params.id}
-        />
-        <Suspense fallback={<ProductsTableSkeleton />}>{children}</Suspense>
+        {children}
       </div>
     </div>
   );
-}
-
-async function getData() {
-  try {
-    const categoriesData: GetListResponse<Category> =
-      await dataProvider.getList({
-        resource: "categories",
-        pagination: {
-          mode: "off",
-        },
-      });
-
-    return {
-      categories: categoriesData,
-    };
-  } catch (error) {
-    return {
-      categories: {
-        total: 0,
-        data: [],
-      },
-    };
-  }
 }

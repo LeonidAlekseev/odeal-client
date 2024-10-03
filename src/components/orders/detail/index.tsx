@@ -9,13 +9,13 @@ import type { Order } from "@/types";
 import dayjs from "dayjs";
 
 type OrderPageProps = {
-  useShowProps?: UseShowProps<Order>;
+  orderId: Order["id"];
 };
 
-export const OrderDetail: React.FC<OrderPageProps> = ({ useShowProps }) => {
+export const OrderDetail: React.FC<OrderPageProps> = ({ orderId }) => {
   const { query: queryResult } = useShow<Order>({
     resource: "orders",
-    ...useShowProps,
+    id: orderId,
   });
   const order = queryResult.data?.data;
 
