@@ -3,8 +3,8 @@
 import { type UseShowProps, useShow } from "@refinedev/core";
 import { useLayoutEffect } from "react";
 import JSConfetti from "js-confetti";
-import { FastMotocycleIcon, OrderIcon } from "@/components/icons";
-import { TRANSLATIONS_THANKS } from "@/constants";
+import { OrderIcon } from "@/components/icons";
+import { TRANSLATIONS_THANKS } from "@/utils/constants";
 import type { Order } from "@/types";
 import dayjs from "dayjs";
 

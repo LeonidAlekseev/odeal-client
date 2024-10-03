@@ -1,6 +1,7 @@
 "use client";
 
-import { API_URL } from "@/constants";
-import dataProviderSimpleRest from "@refinedev/simple-rest";
+import { DataProvider } from "@refinedev/strapi-v4";
+import { axiosInstance } from "@/utils/axios-instance";
+import { DATA_API_URL } from "@/utils/constants";
 
-export const dataProvider = dataProviderSimpleRest(API_URL);
+export const dataProvider = DataProvider(DATA_API_URL, axiosInstance);
